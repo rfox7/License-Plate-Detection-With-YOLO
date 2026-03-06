@@ -12,9 +12,9 @@ Real-time **License Plate Detection and Recognition** using **YOLOv8** for objec
 
 | Name   | Email                                         |
 | ------ | --------------------------------------------- |
-| Name 1 | [email@example.com](mailto:email@example.com) |
-| Name 2 | [email@example.com](mailto:email@example.com) |
-| Name 3 | [email@example.com](mailto:email@example.com) |
+| Rich Fox | [rfox72@gmail.com](mailto:rfox72@gmail.com) |
+|  |  |
+|  |  |
 
 ---
 
