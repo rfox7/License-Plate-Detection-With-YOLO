@@ -1,230 +1,142 @@
-# 🚗 License Plate Detection and Recognition using YOLOv8
+# License Plate Detection and Recognition using YOLO
 
-![Python](https://img.shields.io/badge/Python-3.10-blue)
-![PyTorch](https://img.shields.io/badge/PyTorch-DeepLearning-red)
-![YOLOv8](https://img.shields.io/badge/YOLOv8-Ultralytics-green)
-![License](https://img.shields.io/badge/License-MIT-yellow)
+## Team Members
+- Rich Fox – rfox72@gmail.com
 
-Real-time **License Plate Detection and Recognition** using **YOLOv8** for object detection and **EasyOCR** for optical character recognition.
-
----
-# 👥 Team Members
-
-| Name   | Email                                         |
-| ------ | --------------------------------------------- |
-| Rich Fox | [rfox72@gmail.com](mailto:rfox72@gmail.com) |
-|  |  |
-|  |  |
 
 ---
 
+# Project Tier and Justification
 
-# 📌 Overview
+**Project Tier:** Tier 1 
 
-Traditional traffic monitoring, toll collection, and security systems often rely on manual processes that introduce delays, labor costs, and human error.
-
-This project builds an **end-to-end deep learning pipeline** capable of:
-
-* Detecting license plates in images or video
-* Extracting alphanumeric characters
-* Operating in **near real-time environments**
-
-The system is optimized for **high-speed inference and edge deployment**.
+**Justification:**  
+This project implements a high-complexity two-stage computer vision pipeline: real-time object detection of small, localized targets (license plates) and subsequent Optical Character Recognition (OCR). By utilizing a state-of-the-art anchor-free model (YOLOv8) combined with a specialized OCR engine, the project addresses the technical challenges of detecting varying-scale objects at high speeds, fitting the criteria for a mid-to-high complexity implementation.
 
 ---
 
-# 🧠 System Architecture
+# Problem Statement
 
-Pipeline workflow:
+Traditional traffic monitoring, toll collection, and security systems are often crippled by manual inefficiencies and high latency, leading to significant labor costs and data entry errors. To modernize these industries, there is a critical need for a latency-sensitive, automated solution that can reliably detect and recognize license plates in real-time.  
 
-1️⃣ **Input Image / Video Frame**
-2️⃣ **YOLOv8 Detection Model** → Detect license plate bounding box
-3️⃣ **Region Cropping** → Extract plate region
-4️⃣ **EasyOCR Recognition** → Convert plate image to text
-5️⃣ **Output Result** → Plate number + bounding box visualization
-
-```
-Input Image
-     │
-     ▼
-YOLOv8 Plate Detection
-     │
-     ▼
-Crop Plate Region
-     │
-     ▼
-EasyOCR Text Recognition
-     │
-     ▼
-Detected License Plate Number
-```
+This project solves the need for fast, efficient, and precise identification in high-volume environments where processing speed is as vital as accuracy.
 
 ---
 
-# 🛠 Technical Stack
+# Solution Overview
 
-| Component            | Technology            |
-| -------------------- | --------------------- |
-| Programming Language | Python                |
-| Detection Model      | YOLOv8n               |
-| OCR Engine           | EasyOCR               |
-| Framework            | PyTorch               |
-| Data Augmentation    | Albumentations        |
-| Training Platform    | Google Colab / Kaggle |
+The proposed system is an end-to-end deep learning pipeline designed for high-throughput license plate identification. It utilizes the **YOLOv8n (nano)** architecture for high-speed localization (Detection) and integrates the **EasyOCR** library for alphanumeric character extraction (Recognition).
+
+By leveraging YOLOv8’s lightweight design, the system provides an optimal balance of low inference latency and precise recognition, making it ideal for edge deployment in traffic and security surveillance.
 
 ---
 
-# 📂 Dataset
+# Technical Approach
 
-Datasets sourced from Kaggle:
+**CV Technique:**  
+- Object Detection (localization)  
+- Optical Character Recognition (text extraction)
 
-* Automatic Number Plate Recognition
-* Car Number Plate Video Dataset
-* License Plate Dataset
+**Model:**  
+- **YOLOv8n (Nano variant from Ultralytics)** for the detection stage  
+- **EasyOCR** (based on CRAFT and CRNN) for the recognition stage
 
-### Data Labels
+**Framework:**  
+- Python / PyTorch  
+- Libraries: `ultralytics`, `EasyOCR`, `albumentations`
 
-* Bounding boxes in **YOLO format**
-* Plate text for OCR validation
+**Why this approach:**  
+YOLOv8n is selected for its superior inference speed on low-end GPU systems and embedded hardware. Architecturally, it introduces a **Decoupled Head** (separating classification and regression) and a **Task-Aligned Assigner**, which significantly improves performance on small objects like license plates compared to previous versions.
 
-Example YOLO label format:
-
-```
-class x_center y_center width height
-0 0.512 0.422 0.218 0.097
-```
-
----
-
-# 📊 Success Metrics
-
-| Metric             | Target               |
-| ------------------ | -------------------- |
-| Detection Accuracy | **mAP@0.5 ≥ 90%**    |
-| Processing Speed   | **≥ 30 FPS**         |
-| Inference Latency  | **< 50ms per frame** |
+The **anchor-free design** allows for more flexible bounding box predictions at varying angles. EasyOCR is chosen for its robust support for various fonts and lighting conditions found on international license plates.
 
 ---
 
-# 📅 Project Timeline
+# Dataset Information
 
-| Week    | Date   | Task                                    | Milestone        |
-| ------- | ------ | --------------------------------------- | ---------------- |
-| Week 10 | March 20 | Dataset acquisition + environment setup | Dataset Ready    |
-| Week 11 | March 27  | YOLOv8 training + OCR integration       | Model Working    |
-| Week 12 | April 3 | Testing + hyperparameter tuning         | High Accuracy    |
-| Week 13 | April 10 | Video pipeline + optimization           | Demo Ready       |
-| Week 14 | April 17 | Documentation + final testing           | Project Complete |
-| Week 15 | April 24 | Final presentation                      | Delivered        |
+**Source:** Multi-source Kaggle data pool including:
 
----
+- "Automatic Number Plate Recognition"
+- "Car number plate video"
+- "License Plate Dataset"
 
-# ⚙️ Installation
+**Size:**  
+- This dataset contains 453 files. (1.06 G)
 
-Clone the repository:
+**Labels:**  
+- License plate bounding boxes (YOLO format)  
+- Alphanumeric character strings for the secondary recognition task
 
-```bash
-git clone https://github.com/rfox7/License-Plate-Detection-With-YOLO.git
-cd rfox7/License-Plate-Detection-With-YOLO
-```
-
-Install dependencies:
-
-```bash
-pip install ultralytics
-pip install easyocr
-pip install albumentations
-pip install opencv-python
-```
+**Link:**  
+- train_dir = "/kaggle/input/license-plate-dataset/archive/images/train"
+- val_dir = "/kaggle/input/license-plate-dataset/archive/images/val"
 
 ---
 
-# 🚀 Training the Model
+# Success Metrics
 
-Train YOLOv8 on the dataset:
+**Primary Metric:**  
+- **90%+ Detection Accuracy** measured at **mAP@0.5**  
+  (Mean Average Precision at 0.5 Intersection over Union)
 
-```bash
-yolo detect train \
-data=data.yaml \
-model=yolov8n.pt \
-epochs=50 \
-imgsz=640
-```
+**Secondary Metrics:**  
+- Real-time processing throughput (**30+ FPS**)  
+- Low inference latency (**< 50ms per frame** for full pipeline)
 
 ---
 
-# 🔍 Running Inference
+# Week-by-Week Plan
 
-Run detection on an image:
-
-```python
-from ultralytics import YOLO
-import easyocr
-import cv2
-
-model = YOLO("best.pt")
-reader = easyocr.Reader(['en'])
-
-results = model("car.jpg")
-
-for r in results:
-    for box in r.boxes.xyxy:
-        x1, y1, x2, y2 = map(int, box)
-        plate = img[y1:y2, x1:x2]
-        text = reader.readtext(plate)
-        print(text)
-```
+| Week | Date | Tasks | Milestone |
+|-----|-----|-----|-----|
+| Week 10 | March 20 | Dataset acquisition from three sources; environment setup (Ultralytics & EasyOCR installation). | Dataset Ready |
+| Week 11 | March 27 | Model training and fine-tuning using YOLOv8n; integration of the OCR recognition stage. | Model Working |
+| Week 12 | April 3 | Testing, validation, and hyperparameter optimization for mAP@0.5 improvements. | High Accuracy Achieved |
+| Week 13 | April 10 | Video processing implementation; multi-stage pipeline optimization and demo creation. | Demo Ready |
+| Week 14 | April 17 | Final edge testing and comprehensive repository documentation. | Project Completion |
+| Week 15 | April 24 | Final Presentation. | Presentation Delivered |
 
 ---
 
-# 🎥 Demo
+# Resources Needed
 
-Example output:
+**Compute:**  
+- Kaggle Kernels or Google Colab (Free Tier **T4 / P100 GPUs**)
 
-```
-Detected Plate: ABC1234
-Confidence: 0.94
-```
+**Tools:**  
+- Ultralytics YOLOv8  
+- EasyOCR  
+- Python  
+- Albumentations
 
-Future demo will include:
-
-* Real-time webcam detection
-* Video traffic analysis
-
----
-
-# ⚠️ Risks & Mitigation
-
-| Risk                       | Probability | Mitigation                             |
-| -------------------------- | ----------- | -------------------------------------- |
-| Small or angled plates     | Medium      | Use mosaic + perspective augmentation  |
-| Two-stage pipeline latency | Medium      | Crop plate before OCR + FP16 inference |
-| Dataset imbalance          | Low         | Combine multiple datasets              |
+**Cost:**  
+- **$0** (open-source frameworks + free-tier cloud compute)
 
 ---
 
-# 🤖 AI Usage Log
+# Risks & Mitigation
 
-March 2026
-AI assistance used for:
-
-* Drafting proposal structure
-* Formatting Markdown documentation
-* Technical editing
-
----
-
-# 📌 Project Status
-
-* [x] Repository created
-* [x] Proposal written
-* [ ] Dataset acquired
-* [ ] Model training started
-* [ ] Demo created
-* [ ] Final presentation ready
+| Risk | Probability | Mitigation |
+|-----|-----|-----|
+| Poor detection of small or angled plates from CCTV height | Medium | Utilize **albumentations** for Mosaic augmentation and Perspective transforms to simulate varied viewing angles. |
+| High latency in the two-stage pipeline (Detection + OCR) | Medium | Optimize OCR by cropping only the license plate region and using **FP16 half-precision inference**. |
+| Insufficient training data for specific regions | Low | Leverage the three distinct datasets identified in the source context for a more diverse training pool. |
 
 ---
 
-# 📜 License
+# AI Usage Log & Current Status
 
-This project is licensed under the **MIT License**.
+## AI Usage Log
+**March 2026:**  
+Used AI for drafting the initial technical justification and refining the Markdown structure.
+
+---
+
+## Current Status
+
+- [x] Repository created  
+- [x] Proposal written  
+- [ ] Dataset acquired  
+- [ ] Model training started  
+- [ ] Demo created  
+- [ ] Final presentation ready
