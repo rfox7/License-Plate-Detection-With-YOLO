@@ -9,6 +9,7 @@
 # Project Tier and Justification
 
 **Project Tier:** Tier 1 
+Tier 1 project was selected because I am running solo and wanted something I felt I could accomplish. 
 
 **Justification:**  
 This project implements a high-complexity two-stage computer vision pipeline: real-time object detection of small, localized targets (license plates) and subsequent Optical Character Recognition (OCR). By utilizing a state-of-the-art anchor-free model (YOLOv8) combined with a specialized OCR engine, the project addresses the technical challenges of detecting varying-scale objects at high speeds, fitting the criteria for a mid-to-high complexity implementation.
